@@ -52,7 +52,7 @@ export default {
   },
   created() {
     const opts = {
-      endpoint: `http://mean-booster-backend-demomean.192.168.42.194.nip.io/contacts`,
+      endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts`,
       noAuth: true
     }
     roi.get(opts)
@@ -66,7 +66,7 @@ export default {
   methods: {
     add() {
       const opts = {
-        endpoint: `http://mean-booster-backend-demomean.192.168.42.194.nip.io/contacts`,
+        endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts`,
         noAuth: true
       }
       roi.post(opts, {name: this.contact.name, email: this.contact.email, number: this.contact.number})
@@ -79,7 +79,7 @@ export default {
     },
     remove(id) {
       const opts = {
-        endpoint: `http://mean-booster-backend-demomean.192.168.42.194.nip.io/contacts/${id}`,
+        endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts/${id}`,
         noAuth: true
       }
       roi.del(opts)
@@ -92,7 +92,7 @@ export default {
     },
     edit(id) {
       const opts = {
-        endpoint: `http://mean-booster-backend-demomean.192.168.42.194.nip.io/contacts/${id}`,
+        endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts/${id}`,
         noAuth: true
       }
       roi.get(opts)
