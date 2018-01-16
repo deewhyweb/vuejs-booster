@@ -84,7 +84,7 @@ export default {
       }
       roi.del(opts)
       .then(response => {
-        console.log('update the table list');
+        this.contacts = this.contacts.filter((c) => c._id !== id);
       })
       .catch(e => {
         console.log(e);
