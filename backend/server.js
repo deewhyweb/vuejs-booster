@@ -39,8 +39,8 @@ app.post('/contacts', (req, res) => {
   contact.email = req.body.email;
   contact.number = req.body.number;
   contact.save()
-    .then(() => {
-      res.body = {success: true};
+    .then((response) => {
+      res.body = {success: true, contact: response};
       res.json(res.body);
     })
     .catch(e => {
