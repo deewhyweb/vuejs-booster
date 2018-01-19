@@ -43,7 +43,6 @@
 import axios from 'axios';
 delete axios.defaults.headers.common["Authorization"];  //replacement for noAuth:true in roi opts
 const endpoint = 'http://booster-backend-demomean.192.168.42.194.nip.io/contacts';
-
 export default {
   name: "Contacts",
   data() {
@@ -65,13 +64,7 @@ export default {
     add() {
       axios.post(endpoint, {name: this.contact.name, email: this.contact.email, number: this.contact.number})
       .then(response => {
-        try{
-          const respObject = JSON.parse(response.body);
-          this.contacts.push(respObject.contact);
-        }
-        catch(err){
-          console.log(err);
-        }
+        this.contacts.push(response.data.contact);
         this.contact = {name: '', email: '', number: ''};
       })
       .catch(e => {
