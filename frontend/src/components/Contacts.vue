@@ -65,6 +65,13 @@ export default {
     add() {
       axios.post(endpoint, {name: this.contact.name, email: this.contact.email, number: this.contact.number})
       .then(response => {
+        try{
+          const respObject = JSON.parse(response.body);
+          this.contacts.push(respObject.contact);
+        }
+        catch(err){
+          console.log(err);
+        }
         this.contact = {name: '', email: '', number: ''};
       })
       .catch(e => {
