@@ -85,7 +85,7 @@ export default {
       const editEndpoint = endpoint + `/${id}`;
       axios.get(editEndpoint)
       .then(response => {
-        const body = JSON.parse(response.body);
+        const body = response.data;
         this.contact = {name: body.name, email: body.email, number: body.number};
       })
       .catch(e => {
