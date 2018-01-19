@@ -40,7 +40,9 @@
 </template>
 
 <script>
-import roi from 'roi';
+import axios from 'axios';
+delete axios.defaults.headers.common["Authorization"];  //replacement for noAuth:true in roi opts
+const endpoint = 'http://booster-backend-demomean.192.168.42.194.nip.io/contacts';
 
 export default {
   name: "Contacts",
@@ -51,13 +53,9 @@ export default {
     };
   },
   created() {
-    const opts = {
-      endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts`,
-      noAuth: true
-    }
-    roi.get(opts)
+    axios.get(endpoint)
     .then(response => {
-      this.contacts = JSON.parse(response.body);
+      this.contacts = response.data;
     })
     .catch(e => {
       console.log(e);
@@ -65,11 +63,7 @@ export default {
   },
   methods: {
     add() {
-      const opts = {
-        endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts`,
-        noAuth: true
-      }
-      roi.post(opts, {name: this.contact.name, email: this.contact.email, number: this.contact.number})
+      axios.post(endpoint, {name: this.contact.name, email: this.contact.email, number: this.contact.number})
       .then(response => {
         this.contact = {name: '', email: '', number: ''};
       })
@@ -78,11 +72,8 @@ export default {
       })
     },
     remove(id) {
-      const opts = {
-        endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts/${id}`,
-        noAuth: true
-      }
-      roi.del(opts)
+      const delEndpoint = endpoint + `/${id}`;
+      axios.delete(delEndpoint)
       .then(response => {
         this.contacts = this.contacts.filter((c) => c._id !== id);
       })
@@ -91,11 +82,8 @@ export default {
       })
     },
     edit(id) {
-      const opts = {
-        endpoint: `http://booster-backend-demomean.192.168.42.194.nip.io/contacts/${id}`,
-        noAuth: true
-      }
-      roi.get(opts)
+      const editEndpoint = endpoint + `/${id}`;
+      axios.get(editEndpoint)
       .then(response => {
         const body = JSON.parse(response.body);
         this.contact = {name: body.name, email: body.email, number: body.number};

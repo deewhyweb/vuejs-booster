@@ -10,8 +10,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "patternfly": "^3.35.1",
-    "roi": "^0.18.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {
