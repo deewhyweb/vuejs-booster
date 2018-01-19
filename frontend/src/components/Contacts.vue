@@ -21,8 +21,8 @@
               <td><input type="text" class="form-control" v-model="contact.name" name="name"></td>
               <td><input type="text" class="form-control" v-model="contact.email" name="email"></td>
               <td><input type="text" class="form-control" v-model="contact.number" name="number"></td>
-              <td><button type="button" class="btn btn-default btn-block" @click="add()">Add contact</button></td>
-              <td><button type="button" class="btn btn-info btn-block" @click="update(contact)">Update</button></td>
+              <td><button type="button" class="btn btn-default btn-block" @click="add()" :disabled="existing == 1">Add contact</button></td>
+              <td><button type="button" class="btn btn-info btn-block" @click="update(contact)" :disabled="existing == 0">Update</button></td>
             </tr>
             <tr v-for="c in contacts">
               <td>{{c.name}}</td>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       contacts: [],
+      existing: 0,
       contact: {name: '', email: '', number: ''}
     };
   },
@@ -83,6 +84,7 @@ export default {
     },
     edit(id) {
       const editEndpoint = endpoint + `/${id}`;
+      this.existing = 1;
       axios.get(editEndpoint)
       .then(response => {
         const body = response.data;
@@ -94,6 +96,8 @@ export default {
     },
     update(contact) {
       const updateEndpoint = endpoint + `/${contact._id}`;
+      this.contact = {name: '', email: '', number: ''};
+      this.existing = 0;
       axios.put(updateEndpoint, contact)
       .then(response => {
         var index = this.contacts.findIndex(function(element){
