@@ -86,14 +86,27 @@ export default {
       axios.get(editEndpoint)
       .then(response => {
         const body = response.data;
-        this.contact = {name: body.name, email: body.email, number: body.number};
+        this.contact = {_id: body._id, name: body.name, email: body.email, number: body.number};
       })
       .catch(e => {
         console.log(e);
       })
     },
     update(contact) {
-      console.log('not implemented yet. Contact:', contact.name, contact.email, contact.number);
+      const updateEndpoint = endpoint + `/${contact._id}`;
+      axios.put(updateEndpoint, contact)
+      .then(response => {
+        var index = this.contacts.findIndex(function(element){
+          return element._id == contact._id;
+        });
+        this.contacts[index].name = contact.name;
+        this.contacts[index].email = contact.email;
+        this.contacts[index].number = contact.number;
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      
     }
   }
 };
