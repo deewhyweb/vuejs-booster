@@ -55,7 +55,6 @@ export default {
   created() {
     axios.get(endpoint)
     .then(response => {
-      console.log(response);
       this.contacts = response.data;
     })
     .catch(e => {
